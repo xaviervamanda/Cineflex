@@ -1,26 +1,46 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import loading from "../../assets/loading.gif";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
+
+    const [movieList, setMovieList] = useState(null);
+    const url = "https://mock-api.driven.com.br/api/v8/cineflex/movies"
+
+    useEffect(() => {
+        const request = axios.get(url);
+
+        request.then(response => {
+            setMovieList(response.data)
+            console.log(response.data)
+        });
+
+        request.catch(error => console.log(error))
+    }, []);
+
+    if (movieList === null){
+        return (
+            <Loading>
+                <img src={loading} alt="loading" />
+            </Loading>
+        );
+    }
+
     return (
         <PageContainer>
             Selecione o filme
 
             <ListContainer>
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
+                {movieList.map ((movie) => {
+                    return ( 
+                        <Link to={`/sessoes/${movie.id}`} key={movie.id}>
+                            <MovieContainer data-test="movie"  >
+                                <img src={movie.posterURL} alt="poster"/>
+                            </MovieContainer>
+                        </Link>
+                )})}
             </ListContainer>
 
         </PageContainer>
@@ -57,5 +77,15 @@ const MovieContainer = styled.div`
     img {
         width: 130px;
         height: 190px;
+    }
+`
+const Loading = styled.div`
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 200px;
+    img{
+        width: 50px;
+        height: 50px;
     }
 `
