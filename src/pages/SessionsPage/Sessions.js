@@ -6,12 +6,12 @@ export default function Sessions ({params, sessionsList}){
         <div>
             {sessionsList.days.map ((day, index) => {
                 return (
-                    <SessionContainer key={index}>
+                    <SessionContainer key={index} data-test="movie-day">
                         {day.weekday} - {day.date}
                         <ButtonsContainer>
                             {day.showtimes.map ((time, index) => {
                                 return (
-                                    <button key={index}>{time.name}</button> 
+                                    <button key={index} data-test="showtime">{time.name}</button> 
                                 )
                             })}
                         </ButtonsContainer>
