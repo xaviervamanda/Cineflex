@@ -1,46 +1,46 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import Loading from "../../components/Loading";
+import Sessions from "./Sessions";
 
-export default function SessionsPage() {
+export default function SessionsPage({url}) {
 
+    const [sessionsList, setSessionsList] = useState(null);
     const params = useParams();
-    console.log(params.idFilme);
+
+    useEffect(() => {
+        const request = axios.get(`${url}/${params.idFilme}/showtimes`);
+
+        request.then((response) => {
+           setSessionsList(response.data);
+           console.log(response.data);
+        });
+
+        request.catch((error) => alert(`${error.response.message}`));
+    }, []);
+
+    if (sessionsList === null){
+        return (
+            <Loading />
+        );
+    }
+
+
+    console.log(sessionsList)
 
     return (
         <PageContainer>
             Selecione o horário
-            <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-            </div>
+            <Sessions params={params} sessionsList={sessionsList}/>
 
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={sessionsList.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{sessionsList.title}</p>
                 </div>
             </FooterContainer>
 
@@ -60,26 +60,6 @@ const PageContainer = styled.div`
     padding-top: 70px;
     div {
         margin-top: 20px;
-    }
-`
-const SessionContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: 'Roboto';
-    font-size: 20px;
-    color: #293845;
-    padding: 0 20px;
-`
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 20px 0;
-    button {
-        margin-right: 20px;
-    }
-    a {
-        text-decoration: none;
     }
 `
 const FooterContainer = styled.div`

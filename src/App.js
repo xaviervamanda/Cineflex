@@ -6,15 +6,18 @@ import SuccessPage from "./pages/SuccessPage/SuccessPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
+
+    const url = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
+
     return (
         <>
            <NavContainer>CINEFLEX</NavContainer>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/sessoes/:idFilme" element={<SessionsPage />} />
-                    <Route path="/assentos/:idSessao" element={<SeatsPage />} />
-                    <Route path="/sucesso" element={<SuccessPage />} />
+                    <Route path="/" element={<HomePage url={url}/>} />
+                    <Route path="/sessoes/:idFilme" element={<SessionsPage url={url}/>} />
+                    <Route path="/assentos/:idSessao" element={<SeatsPage url={url}/>} />
+                    <Route path="/sucesso" element={<SuccessPage url={url}/>} />
                 </Routes>
             </BrowserRouter>
         </>
