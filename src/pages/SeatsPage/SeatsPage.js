@@ -6,13 +6,12 @@ import Loading from "../../components/Loading";
 import Seats from "./Seats";
 import SeatsOptions from "./SeatsOptions";
 
-export default function SeatsPage({url, seatsReserved, setSeatsReserved}) {
+export default function SeatsPage({url, seatsList, setSeatsList, 
+    seatsNumber, setSeatsNumber, name, setName,
+    cpf, setCpf, seatsReserved, setSeatsReserved}) {
 
-    const [seatsList, setSeatsList] = useState(null);
     const params = useParams();
     const navigate = useNavigate();
-    const [name, setName] = useState("");
-    const [cpf, setCpf] = useState("");
 
     useEffect(() => {
         const request = axios.get(`${url}/showtimes/${params.idSessao}/seats`);
@@ -46,8 +45,7 @@ export default function SeatsPage({url, seatsReserved, setSeatsReserved}) {
             console.log(object)
             const request = axios.post(newUrl, object);
             request.then (response => navigate("/sucesso"));
-            request.catch (error => alert(`Ocorreu o seguinte erro: ${error.response.message}`))
-             
+            request.catch (error => alert(`Ocorreu o seguinte erro: ${error.response.message}`))   
         }
         
     }
@@ -56,7 +54,12 @@ export default function SeatsPage({url, seatsReserved, setSeatsReserved}) {
         <PageContainer>
             Selecione o(s) assento(s)
 
-            <Seats seatsList={seatsList} seatsReserved={seatsReserved} setSeatsReserved={setSeatsReserved}/>
+            <Seats seatsList={seatsList} 
+            seatsReserved={seatsReserved} 
+            setSeatsReserved={setSeatsReserved}
+            seatsNumber={seatsNumber}
+            setSeatsNumber={setSeatsNumber}
+            />
 
             <SeatsOptions seatsList={seatsList}/>
 

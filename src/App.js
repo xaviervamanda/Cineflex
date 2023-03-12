@@ -9,7 +9,11 @@ import { useState } from "react";
 export default function App() {
 
     const url = "https://mock-api.driven.com.br/api/v8/cineflex/";
+    const [seatsList, setSeatsList] = useState(null);
+    const [seatsNumber, setSeatsNumber] = useState([]);
     const [seatsReserved, setSeatsReserved] = useState([]);
+    const [name, setName] = useState("");
+    const [cpf, setCpf] = useState("");
 
     return (
         <>
@@ -20,11 +24,27 @@ export default function App() {
                     <Route path="/sessoes/:idFilme" element={<SessionsPage url={url}/>} />
                     <Route path="/assentos/:idSessao" element={<SeatsPage 
                     url={url}
+                    seatsList={seatsList}
+                    setSeatsList={setSeatsList}
+                    seatsNumber={seatsNumber}
+                    setSeatsNumber={setSeatsNumber}
+                    name={name}
+                    setName={setName}
+                    cpf={cpf}
+                    setCpf={setCpf}
                     seatsReserved={seatsReserved}
                     setSeatsReserved={setSeatsReserved}
                     />} />
-                    <Route path="/sucesso" element={<SuccessPage url={url}
+                    <Route path="/sucesso" element={<SuccessPage
+                    seatsList={seatsList}
+                    seatsNumber={seatsNumber}
+                    setSeatsNumber={setSeatsNumber}
+                    name={name}
+                    setName={setName}
+                    cpf={cpf}
+                    setCpf={setCpf}
                     seatsReserved={seatsReserved}
+                    setSeatsReserved={setSeatsReserved}
                     />} />
                 </Routes>
             </BrowserRouter>

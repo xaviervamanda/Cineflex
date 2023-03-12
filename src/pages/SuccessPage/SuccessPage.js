@@ -1,31 +1,46 @@
+
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
-export default function SuccessPage() {
+export default function SuccessPage({seatsNumber, seatsList, name, cpf, 
+    setName, setCpf, setSeatsReserved, setSeatsNumber}) {
+
+    const navigate = useNavigate();
+
+    function backToHome (){
+        setName("");
+        setCpf("");
+        setSeatsNumber([]);
+        setSeatsReserved([]);
+        navigate("/");
+    }
 
     return (
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
-            <TextContainer>
+            <TextContainer data-test="movie-info">
                 <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
+                <p>{seatsList.movie.title}</p>
+                <p>{seatsList.day.date} - {seatsList.name}</p>
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="seats-info">
                 <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
+                {seatsNumber.map ((number, index) => {
+                    return (
+                        <p key={index}>Assento {number}</p>  
+                    )
+                })}
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="client-info">
                 <strong><p>Comprador</p></strong>
-                <p>Nome: Letícia Chijo</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {name}</p>
+                <p>CPF: {cpf}</p>
             </TextContainer>
 
-            <button>Voltar para Home</button>
+            <button data-test="go-home-btn" onClick={backToHome}>Voltar para Home</button>
         </PageContainer>
     )
 }

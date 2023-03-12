@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Seats ({seatsList, seatsReserved, setSeatsReserved}){
+export default function Seats ({seatsList, seatsReserved, setSeatsReserved, seatsNumber, setSeatsNumber}){
 
     const [selected, setSelected] = useState(Array(seatsList.seats.length).fill(false));
 
-    function reserveSeats (isAvailable, index, seat){
+    function reserveSeats (isAvailable, index, seat, numberSeat){
         if (!isAvailable){
             alert ("Esse assento não está disponível.")
         }
@@ -19,14 +19,22 @@ export default function Seats ({seatsList, seatsReserved, setSeatsReserved}){
                 const elementIndex = seatsReserved.indexOf(seat);
                 newSeatsReserved.splice(elementIndex, 1);
                 setSeatsReserved(newSeatsReserved);
+
+                const newSeatsNumber = [...seatsNumber];
+                const elementNumberIndex = seatsNumber.indexOf(numberSeat);
+                newSeatsNumber.splice(elementNumberIndex, 1);
+                setSeatsNumber(newSeatsNumber);
                  
             } else {
                 const newSelected = [...selected];
                 newSelected[index] = true;
-                // reservar assentos
                 setSelected(newSelected);
+                // reservar assentos
                 const reserve = [...seatsReserved, seat]
-                setSeatsReserved(reserve);  
+                setSeatsReserved(reserve);
+                
+                const reserveNumber = [...seatsNumber, numberSeat]
+                setSeatsNumber(reserveNumber);
             }
             
         }
@@ -38,7 +46,7 @@ export default function Seats ({seatsList, seatsReserved, setSeatsReserved}){
         <SeatsContainer>
             {seatsList.seats.map ((seat, index) => {
                 return (
-                    <SeatItem data-test="seat" key={index} isAvailable={seat.isAvailable} selected={selected[index]} onClick={() => reserveSeats(seat.isAvailable, index, seat.id)}>{seat.name}</SeatItem>
+                    <SeatItem data-test="seat" key={index} isAvailable={seat.isAvailable} selected={selected[index]} onClick={() => reserveSeats(seat.isAvailable, index, seat.id, seat.name)}>{seat.name}</SeatItem>
                 )
             })}
         </SeatsContainer>
