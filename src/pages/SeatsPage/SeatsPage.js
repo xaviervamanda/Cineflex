@@ -18,6 +18,8 @@ export default function SeatsPage({url, seatsList, setSeatsList,
 
         request.then((response) => {
            setSeatsList(response.data);
+           setSeatsNumber([]);
+           setSeatsReserved([]);
            console.log(response.data);
         });
 

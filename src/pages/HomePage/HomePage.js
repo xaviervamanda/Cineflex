@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Movies from "./Movies";
 
-export default function HomePage({url}) {
+export default function HomePage({url, setIsHome}) {
 
     
 
@@ -9,7 +9,7 @@ export default function HomePage({url}) {
         <PageContainer>
             Selecione o filme
 
-            <Movies url={url}/>
+            <Movies url={url} setIsHome={setIsHome}/>
 
         </PageContainer>
     )

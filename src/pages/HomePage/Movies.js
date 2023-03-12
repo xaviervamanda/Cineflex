@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 
-export default function Movies ({url}){
+export default function Movies ({url, setIsHome}){
 
     const [movieList, setMovieList] = useState(null);
     
