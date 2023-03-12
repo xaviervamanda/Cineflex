@@ -4,10 +4,12 @@ import SeatsPage from "./pages/SeatsPage/SeatsPage";
 import SessionsPage from "./pages/SessionsPage/SessionsPage";
 import SuccessPage from "./pages/SuccessPage/SuccessPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 export default function App() {
 
-    const url = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
+    const url = "https://mock-api.driven.com.br/api/v8/cineflex/";
+    const [seatsReserved, setSeatsReserved] = useState([]);
 
     return (
         <>
@@ -16,8 +18,14 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<HomePage url={url}/>} />
                     <Route path="/sessoes/:idFilme" element={<SessionsPage url={url}/>} />
-                    <Route path="/assentos/:idSessao" element={<SeatsPage url={url}/>} />
-                    <Route path="/sucesso" element={<SuccessPage url={url}/>} />
+                    <Route path="/assentos/:idSessao" element={<SeatsPage 
+                    url={url}
+                    seatsReserved={seatsReserved}
+                    setSeatsReserved={setSeatsReserved}
+                    />} />
+                    <Route path="/sucesso" element={<SuccessPage url={url}
+                    seatsReserved={seatsReserved}
+                    />} />
                 </Routes>
             </BrowserRouter>
         </>

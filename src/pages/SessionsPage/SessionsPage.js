@@ -8,10 +8,11 @@ import Sessions from "./Sessions";
 export default function SessionsPage({url}) {
 
     const [sessionsList, setSessionsList] = useState(null);
+
     const params = useParams();
 
     useEffect(() => {
-        const request = axios.get(`${url}/${params.idFilme}/showtimes`);
+        const request = axios.get(`${url}/movies/${params.idFilme}/showtimes`);
 
         request.then((response) => {
            setSessionsList(response.data);
@@ -33,9 +34,9 @@ export default function SessionsPage({url}) {
     return (
         <PageContainer>
             Selecione o horário
-            <Sessions params={params} sessionsList={sessionsList}/>
+            <Sessions sessionsList={sessionsList}/>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={sessionsList.posterURL} alt="poster" />
                 </div>

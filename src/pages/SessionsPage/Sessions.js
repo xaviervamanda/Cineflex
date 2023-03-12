@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function Sessions ({params, sessionsList}){
-    console.log(sessionsList)
+export default function Sessions ({ sessionsList}){
+    
     return (
         <div>
             {sessionsList.days.map ((day, index) => {
@@ -11,7 +12,7 @@ export default function Sessions ({params, sessionsList}){
                         <ButtonsContainer>
                             {day.showtimes.map ((time, index) => {
                                 return (
-                                    <button key={index} data-test="showtime">{time.name}</button> 
+                                    <Link to={`/assentos/${time.id}`} key={index}><button data-test="showtime">{time.name}</button></Link> 
                                 )
                             })}
                         </ButtonsContainer>

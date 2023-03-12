@@ -10,7 +10,7 @@ export default function Movies ({url}){
     
 
     useEffect(() => {
-        const request = axios.get(url);
+        const request = axios.get(`${url}/movies`);
 
         request.then(response => {
             setMovieList(response.data)
