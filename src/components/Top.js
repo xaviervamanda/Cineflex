@@ -19,7 +19,7 @@ export default function Top ({setSeatsNumber, setSeatsReserved}){
     return (
         <>
             <NavContainer>CINEFLEX</NavContainer>
-            <ReturnIcon isHome={isHome} onClick={() => navigate(-1)}/>
+            <ReturnIcon data-test="go-home-header-btn" isHome={isHome} onClick={() => navigate(-1)}/>
         </>
     );
 }
