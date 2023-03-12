@@ -12,7 +12,7 @@ export default function Sessions ({ sessionsList}){
                         <ButtonsContainer>
                             {day.showtimes.map ((time, index) => {
                                 return (
-                                    <Link to={`/assentos/${time.id}`} key={index}><button data-test="showtime">{time.name}</button></Link> 
+                                    <Link to={`/assentos/${time.id}`} key={index}data-test="showtime"><button >{time.name}</button></Link> 
                                 )
                             })}
                         </ButtonsContainer>

@@ -29,8 +29,8 @@ export default function Movies ({url}){
         <ListContainer>
             {movieList.map ((movie) => {
                 return ( 
-                    <Link to={`/sessoes/${movie.id}`} key={movie.id}>
-                        <MovieContainer data-test="movie"  >
+                    <Link to={`/sessoes/${movie.id}`} data-test="movie" key={movie.id}>
+                        <MovieContainer>
                             <img src={movie.posterURL} alt="poster"/>
                         </MovieContainer>
                     </Link>
