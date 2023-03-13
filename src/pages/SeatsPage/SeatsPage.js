@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import InputMask from "react-input-mask";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../../components/Loading";
@@ -76,8 +77,9 @@ export default function SeatsPage({url, seatsList, setSeatsList,
                     required/>
 
                     CPF do Comprador:
-                    <input data-test="client-cpf"
-                    type="number"
+                    <InputMask data-test="client-cpf"
+                    mask={"999.999.999-99"}
+                    type="text"
                     value={cpf}
                     onChange={e => setCpf(e.target.value)}
                     placeholder="Digite seu CPF..." 
