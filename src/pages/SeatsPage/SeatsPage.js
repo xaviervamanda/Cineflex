@@ -21,7 +21,8 @@ export default function SeatsPage({url, seatsList, setSeatsList,
            setSeatsList(response.data);
            setSeatsNumber([]);
            setSeatsReserved([]);
-           console.log(response.data);
+           setName([]);
+           setCpf([]);
         });
 
         request.catch((error) => {
@@ -43,9 +44,15 @@ export default function SeatsPage({url, seatsList, setSeatsList,
             alert ("Você não escolheu nenhum assento para reservar.")
         } else {
             const newUrl = `${url}/seats/book-many`;
-            const object = {ids: seatsReserved, name: name, cpf: cpf};
-            console.log(newUrl);
-            console.log(object)
+            const compradores = seatsReserved.map((seat, index) => ({
+                idAssento: seat,
+                nome: name[index],
+                cpf: cpf[index]
+              })); 
+              const object = {
+                ids: seatsReserved,
+                compradores: compradores
+              };
             const request = axios.post(newUrl, object);
             request.then (response => navigate("/sucesso"));
             request.catch (error => alert(`Ocorreu o seguinte erro: ${error.response.message}`))   
@@ -62,31 +69,48 @@ export default function SeatsPage({url, seatsList, setSeatsList,
             setSeatsReserved={setSeatsReserved}
             seatsNumber={seatsNumber}
             setSeatsNumber={setSeatsNumber}
+            setName={setName}
+            name={name}
+            cpf={cpf}
+            setCpf={setCpf}
             />
 
             <SeatsOptions seatsList={seatsList}/>
 
             <FormContainer>
                 <form onSubmit={sendOrder}>
-                    Nome do Comprador:
-                    <input data-test="client-name" 
-                    type="text" 
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    placeholder="Digite seu nome..." 
-                    required/>
+                    {seatsNumber.map((seat, index) => {
+                        return (
+                            <>
+                            <div><strong>Assento {seat}:</strong></div>
+                            Nome do Comprador:
+                            <input data-test="client-name" 
+                            type="text" 
+                            value={name[index]}
+                            onChange={e => {
+                                const newName = [...name];
+                                newName[index] = e.target.value;
+                                setName(newName);
+                            }}
+                            placeholder="Digite seu nome..." 
+                            required/>
 
-                    CPF do Comprador:
-                    <InputMask data-test="client-cpf"
-                    mask={"999.999.999-99"}
-                    type="text"
-                    value={cpf}
-                    onChange={e => setCpf(e.target.value)}
-                    placeholder="Digite seu CPF..." 
-                    required/>
-
-                    <button>Reservar Assento(s)</button>
-                </form>
+                            CPF do Comprador:
+                            <InputMask data-test="client-cpf"
+                            mask={"999.999.999-99"}
+                            type="text"
+                            value={cpf[index]}
+                            onChange={e => {
+                                const newCpf = [...cpf];
+                                newCpf[index] = e.target.value;
+                                setCpf(newCpf);
+                            }}
+                            placeholder="Digite seu CPF..." 
+                            required/>
+                            </>
+                        )})}
+                    {seatsNumber.length === 0 ? "" : <button>Reservar Assento(s)</button>}
+                </form> 
             </FormContainer>
 
             <FooterContainer data-test="footer">
@@ -122,6 +146,10 @@ const FormContainer = styled.div`
     align-items: flex-start;
     margin: 20px 0;
     font-size: 18px;
+    text-align: start;
+    div {
+        margin-bottom: 5px;
+    }
     button {
         align-self: center;
     }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {AiOutlineArrowLeft} from "react-icons/ai"
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Top ({setSeatsNumber, setSeatsReserved}){
+export default function Top (){
 
     const navigate = useNavigate();
     const location = useLocation();

@@ -13,8 +13,8 @@ export default function App() {
     const [seatsList, setSeatsList] = useState(null);
     const [seatsNumber, setSeatsNumber] = useState([]);
     const [seatsReserved, setSeatsReserved] = useState([]);
-    const [name, setName] = useState("");
-    const [cpf, setCpf] = useState("");
+    const [name, setName] = useState([]);
+    const [cpf, setCpf] = useState([]);
     
     return (
         <>

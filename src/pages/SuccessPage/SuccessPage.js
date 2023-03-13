@@ -35,9 +35,15 @@ export default function SuccessPage({seatsNumber, seatsList, name, cpf,
             </TextContainer>
 
             <TextContainer data-test="client-info">
-                <strong><p>Comprador</p></strong>
-                <p>Nome: {name}</p>
-                <p>CPF: {cpf}</p>
+                <strong><p>Compradores</p></strong>
+                {name.map ((n, index) => {
+                    return (
+                        <>
+                            <p key={index}>Nome: {n}</p>
+                            <p>CPF: {cpf[index]}</p>
+                        </>
+                    );
+                })}
             </TextContainer>
 
             <button data-test="go-home-btn" onClick={backToHome}>Voltar para Home</button>
@@ -82,5 +88,8 @@ const TextContainer = styled.div`
     strong {
         font-weight: bold;
         margin-bottom: 10px;
+    }
+    p {
+        margin-bottom: 5px;
     }
 `

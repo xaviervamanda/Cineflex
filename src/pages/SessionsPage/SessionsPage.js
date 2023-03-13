@@ -16,7 +16,6 @@ export default function SessionsPage({url}) {
 
         request.then((response) => {
            setSessionsList(response.data);
-           console.log(response.data);
         });
 
         request.catch((error) => alert(`${error.response.message}`));
@@ -27,9 +26,6 @@ export default function SessionsPage({url}) {
             <Loading />
         );
     }
-
-
-    console.log(sessionsList)
 
     return (
         <PageContainer>

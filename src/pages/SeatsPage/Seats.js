@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Seats ({seatsList, seatsReserved, setSeatsReserved, seatsNumber, setSeatsNumber}){
+export default function Seats ({seatsList, seatsReserved, setSeatsReserved, 
+    seatsNumber, setSeatsNumber, name, setName, cpf, setCpf}){
 
     const [selected, setSelected] = useState(Array(seatsList.seats.length).fill(false));
 
@@ -24,6 +25,14 @@ export default function Seats ({seatsList, seatsReserved, setSeatsReserved, seat
                 const elementNumberIndex = seatsNumber.indexOf(numberSeat);
                 newSeatsNumber.splice(elementNumberIndex, 1);
                 setSeatsNumber(newSeatsNumber);
+
+                const newName = [...name];
+                newName.splice(elementNumberIndex, 1);
+                setName(newName);
+
+                const newCpf = [...cpf];
+                newCpf.splice(elementNumberIndex, 1);
+                setCpf(newCpf);
                  
             } else {
                 const newSelected = [...selected];
@@ -39,8 +48,6 @@ export default function Seats ({seatsList, seatsReserved, setSeatsReserved, seat
             
         }
     }
-
-    console.log(seatsReserved)
 
     return (
         <SeatsContainer>
