@@ -48,6 +48,8 @@ export default function Seats ({seatsList, seatsReserved, setSeatsReserved,
             
         }
     }
+    
+    console.log(name)
 
     return (
         <SeatsContainer>

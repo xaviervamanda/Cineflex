@@ -86,6 +86,7 @@ export default function SeatsPage({url, seatsList, setSeatsList,
                             Nome do Comprador:
                             <input data-test="client-name" 
                             type="text" 
+                            id={seat}
                             value={name[index]}
                             onChange={e => {
                                 const newName = [...name];
@@ -99,6 +100,7 @@ export default function SeatsPage({url, seatsList, setSeatsList,
                             <InputMask data-test="client-cpf"
                             mask={"999.999.999-99"}
                             type="text"
+                            id={seat}
                             value={cpf[index]}
                             onChange={e => {
                                 const newCpf = [...cpf];
